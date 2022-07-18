@@ -16,3 +16,6 @@ pip install requirements.txt
 
 <img width="891" alt="Screen Shot 2022-07-17 at 9 14 55 PM" src="https://user-images.githubusercontent.com/40430605/179433461-ccb709fc-d56e-47b6-9e5e-944eedd74126.png">
 
+## Output
+
+<img width="1058" alt="Screen Shot 2022-07-18 at 9 20 26 AM" src="https://user-images.githubusercontent.com/40430605/179520493-160fe99d-cdc8-44e5-b55a-7dbee97f91c8.png">
