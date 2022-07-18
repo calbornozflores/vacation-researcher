@@ -4,8 +4,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 import time
-import pandas as pd
-from pathlib import Path
 import datetime
 import progressbar
 import logging
@@ -20,6 +18,8 @@ from tools.xpaths import loginButtom, loginUser, loginPass, sendCredentials, hea
 
 
 def run(WEBPAGE, USER, PWD):
+    logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
+    logging.info("Opening Output File ...")
     file = open('outputs/research.csv', 'a+', newline ='')
     extracted_attr = ["placeName", "pageNumber", "resortName", "resortStars", "resortDistance",
                       "resortPublicPrice", "resortFinalPrice", "resortPriceByNight",
@@ -27,26 +27,37 @@ def run(WEBPAGE, USER, PWD):
     write = csv.writer(file)
     write.writerow(extracted_attr)
 
+    logging.info("Opening Chrome Windows ...")
     driver = webdriver.Chrome(ChromeDriverManager().install())
     driver.maximize_window()
+    logging.info("Entering URL ...")
     driver.get(WEBPAGE)
     # Landing Page
+    logging.info("Clicking login buttom ...")
     driver.find_element(By.XPATH, loginButtom).click()
+    logging.info("Filling out user ...")
     driver.find_element(By.XPATH, loginUser).send_keys(USER)
+    logging.info("Filling out password ...")
     driver.find_element(By.XPATH, loginPass).send_keys(PWD)
+    logging.info("Sending credentials ...")
     driver.find_element(By.XPATH, sendCredentials).click()
     time.sleep(5)
     # Home Page
+    logging.info("Entering Hotel Section ...")
     driver.find_element(By.XPATH, headerHotelButtom).click()
     time.sleep(5)
 
+    logging.info("Receiving Date Range ...")
     arrivalDateStr, departureDateStr = get_dates()
+    logging.info("Receiving City to travel ...")
     placeNameStr = get_place()
 
     # Fill Out Fields
+    logging.info("Filling out City to travel ...")
     driver.find_element(By.XPATH, cityInput).send_keys(placeNameStr)
     time.sleep(5)
     driver.find_element(By.XPATH, displayedOption(1)).click()
+    logging.info("Filling out Date Range ...")
     driver.find_element(By.XPATH, arrivalDate).click()
     time.sleep(1)
     driver.find_element(By.XPATH, arrivalDate).clear()
@@ -61,6 +72,11 @@ def run(WEBPAGE, USER, PWD):
 
     totalResortNumber = int(driver.find_element(By.XPATH, resortNumber).text)
 
+    bar = progressbar.ProgressBar(maxval = totalResortNumber, \
+        widgets=[progressbar.Bar(u"█", '[', ']'), ' ', progressbar.Percentage()])
+    bar.start()
+
+    resortIdx = 0
     nextPageNumber = 1
     while goToNextPage:
         resortsInfo_list = []
@@ -92,20 +108,22 @@ def run(WEBPAGE, USER, PWD):
                         departureDateStr
                     ]
                 )
+                resortIdx = resortIdx +1
+                bar.update(resortIdx)
         
         write.writerows(resortsInfo_list)
-        availablePages = driver.find_element(By.XPATH, availablePagesBar).text.split(" ")
-        availablePages = [int(pn) for pn in availablePages]
         nextPageNumber = nextPageNumber + 1
 
         try:
+            availablePages = driver.find_element(By.XPATH, availablePagesBar).text.split(" ")
+            availablePages = [int(pn) for pn in availablePages]
             pageNameIdx = availablePages.index(nextPageNumber) + 1 # Cause in the webpage the idxs referencing the pages start with 1
-            print(availablePages, f"Select: {nextPageNumber} [{pageNameIdx}] / {totalResortNumber}")
             driver.find_element(By.XPATH, availablePagesBarButtom(pageNameIdx)).click()
             goToNextPage = True
             time.sleep(5)
         except:
             goToNextPage = False
+    bar.finish()
     file.close()
     driver.close()
 
