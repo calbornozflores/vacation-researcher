@@ -1,5 +1,5 @@
 # vacation-researcher
-Code for optimizing the vacation cost. Made in recession.
+Code for optimizing the vacation cost looking for resorts on a specific paid webpage. Made in recession.
 
 ## API_KEY.txt
 This file have to be created at the same level of main.py. It has an inline content as follows:
