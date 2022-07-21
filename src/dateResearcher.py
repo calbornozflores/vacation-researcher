@@ -9,7 +9,7 @@ import progressbar
 import logging
 import csv
 from tools.io import get_dates, get_place, get_element
-from tools.xpaths import loginButtom, loginUser, loginPass, sendCredentials, headerHotelButtom, \
+from config.xpaths import loginButtom, loginUser, loginPass, sendCredentials, headerHotelButtom, \
                          cityInput, displayedOption, searchButtom, arrivalDate, departureDate, \
                          global_ids, resortURLXPATH, resortNumber, resortIdPrefix, resortNameXPATH, \
                          resortStarsXPATH, resortDistanceXPATH, resortPublicPriceXPATH, \
