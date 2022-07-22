@@ -9,12 +9,12 @@ import progressbar
 import logging
 import csv
 from tools.io import get_dates, get_place, get_element
-from config.xpaths import loginButtom, loginUser, loginPass, sendCredentials, headerHotelButtom, \
-                         cityInput, displayedOption, searchButtom, arrivalDate, departureDate, \
+from config.xpaths import loginButton, loginUser, loginPass, sendCredentials, headerHotelButton, \
+                         cityInput, displayedOption, searchButton, arrivalDate, departureDate, \
                          global_ids, resortURLXPATH, resortNumber, resortIdPrefix, resortNameXPATH, \
                          resortStarsXPATH, resortDistanceXPATH, resortPublicPriceXPATH, \
                          resortFinalPriceXPATH, resortPriceByNightXPATH, resortDiscountXPATH, \
-                         availablePagesBar, availablePagesBarButtom
+                         availablePagesBar, availablePagesBarButton
 
 
 def run(WEBPAGE, USER, PWD):
@@ -33,8 +33,8 @@ def run(WEBPAGE, USER, PWD):
     logging.info("Entering URL ...")
     driver.get(WEBPAGE)
     # Landing Page
-    logging.info("Clicking login buttom ...")
-    driver.find_element(By.XPATH, loginButtom).click()
+    logging.info("Clicking login button ...")
+    driver.find_element(By.XPATH, loginButton).click()
     logging.info("Filling out user ...")
     driver.find_element(By.XPATH, loginUser).send_keys(USER)
     logging.info("Filling out password ...")
@@ -44,7 +44,7 @@ def run(WEBPAGE, USER, PWD):
     time.sleep(5)
     # Home Page
     logging.info("Entering Hotel Section ...")
-    driver.find_element(By.XPATH, headerHotelButtom).click()
+    driver.find_element(By.XPATH, headerHotelButton).click()
     time.sleep(5)
 
     logging.info("Receiving Date Range ...")
@@ -65,7 +65,7 @@ def run(WEBPAGE, USER, PWD):
     driver.find_element(By.XPATH, arrivalDate).send_keys(arrivalDateStr)
     driver.find_element(By.XPATH, arrivalDate).send_keys(Keys.ENTER)
     driver.find_element(By.XPATH, departureDate).send_keys(departureDateStr)
-    driver.find_element(By.XPATH, searchButtom).click()
+    driver.find_element(By.XPATH, searchButton).click()
 
     time.sleep(20)
     goToNextPage = True
@@ -118,7 +118,7 @@ def run(WEBPAGE, USER, PWD):
             availablePages = driver.find_element(By.XPATH, availablePagesBar).text.split(" ")
             availablePages = [int(pn) for pn in availablePages]
             pageNameIdx = availablePages.index(nextPageNumber) + 1 # Cause in the webpage the idxs referencing the pages start with 1
-            driver.find_element(By.XPATH, availablePagesBarButtom(pageNameIdx)).click()
+            driver.find_element(By.XPATH, availablePagesBarButton(pageNameIdx)).click()
             goToNextPage = True
             time.sleep(5)
         except:

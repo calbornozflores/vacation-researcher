@@ -1,11 +1,11 @@
-loginButtom = '//*[@id="home"]/div[1]/div/div/div/div/div[1]/div/div[1]/div[2]/button'
+loginButton = '//*[@id="home"]/div[1]/div/div/div/div/div[1]/div/div[1]/div[2]/button'
 loginUser = '//*[@id="LoginBlock_UserName"]'
 loginPass = '//*[@id="Password"]'
 sendCredentials = '//*[@id="form0"]/button'
-headerHotelButtom = '//*[@id="navbar"]/ul/li[2]/a'
+headerHotelButton = '//*[@id="navbar"]/ul/li[2]/a'
 cityInput = '//*[@id="ctl00_ctl00_ctl00_ContentPlaceHolderMain_ContentPlaceHolderMain_ContentPlaceHolderMain_RentalsSearchControl_txtGeolocation"]'
 displayedOption = lambda idx: f'//*[@id="ctl00_ctl00_ctl00_ContentPlaceHolderMain_ContentPlaceHolderMain_ContentPlaceHolderMain_RentalsSearchControl_pnlGeolocation"]/span[1]/div/ul/li[{idx}]'
-searchButtom = '//*[@id="ctl00_ctl00_ctl00_ContentPlaceHolderMain_ContentPlaceHolderMain_ContentPlaceHolderMain_RentalsSearchControl_btnSearch"]'
+searchButton = '//*[@id="ctl00_ctl00_ctl00_ContentPlaceHolderMain_ContentPlaceHolderMain_ContentPlaceHolderMain_RentalsSearchControl_btnSearch"]'
 
 arrivalDate = '//*[@id="txtArrivalDate"]'
 departureDate = '//*[@id="txtDepartureDate"]'
@@ -25,4 +25,4 @@ resortPriceByNightXPATH = lambda resortId: f'//*[@id="RentalsResultsItemContaine
 resortDiscountXPATH = lambda resortId: f'//*[@id="{resortIdPrefix}{resortId}"]/div/div[7]/div/span'
 
 availablePagesBar = '//*[@id="rentalsResultsPager"]'
-availablePagesBarButtom = lambda pageNameIdx: f'{availablePagesBar}/a[{pageNameIdx}]'
+availablePagesBarButton = lambda pageNameIdx: f'{availablePagesBar}/a[{pageNameIdx}]'
