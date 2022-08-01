@@ -9,7 +9,7 @@ www.webpage.com username password
 
 ## Requirements
 ```
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 ## Execution
